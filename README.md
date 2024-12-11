@@ -4,7 +4,9 @@ This repo contains a complete Flutter app to augment an April 2025 article in th
 
 **Usage**
 
-![](media/2560223cc1e4f910cf8b3e7669e0186f.jpeg)The opening screen contains buttons that each illustrate a method of state management:
+![](media/2560223cc1e4f910cf8b3e7669e0186f.jpeg)
+
+The opening screen contains buttons that each illustrate a method of state management:
 
 1.  **Subscription Button** – illustrates simple usage of State
 2.  **No State Management Reading Plan** – illustrates how the check button without the function *setState* does not set the checkbox. Once *setState* is uncommented out, it illustrates how the Progress bar is not updated with some form a State Management.
@@ -15,4 +17,4 @@ This repo contains a complete Flutter app to augment an April 2025 article in th
 
 **Derived Code**
 
-The cart, the catalog and the counter have been modified from the flutter samples github repo [https://flutter.github.io/samples/\#](https://flutter.github.io/samples/#) .
+The cart, the catalog and the counter have been modified from the flutter samples github repo [https://flutter.github.io/samples/\#](https://flutter.github.io/samples/) .
