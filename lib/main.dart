@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_statements
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -13,10 +11,20 @@ import './screens/cc_articles_inherit.dart';
 import './screens/cc_articles_no_state_management.dart';
 import './screens/counter.dart';
 
+// Called from the home page - handles all routing of pages
 GoRouter router() {
-  // router is called at the top of the tree and thous checkbox is only filled once.
+  // We have
+  //     /home
+  //          /plan
+  //          /plan_inherited
+  //          /plan_provider
+  //          /catalog
+  //                  /cart
+  //          /counter
+  // router is called at the top of the tree and thus checkbox is only filled once.
   late final List<bool> checkbox;
   checkbox = List.filled(22, false);
+  // I have found Go Router is a pretty easy to understand and implement navigation
   return GoRouter(
     initialLocation: '/home',
     routes: [
@@ -44,6 +52,7 @@ GoRouter router() {
             GoRoute(
               path: 'catalog',
               builder: (context, state) => const MyCatalog(),
+              // When you add routes - you get the back arrow automatically
               routes: [
                 GoRoute(
                   path: 'cart',
@@ -60,6 +69,9 @@ GoRouter router() {
   );
 }
 
+//
+// This is used to subscribe or deactivate your subscription to Circuit Cellar
+//
 class HomePageButton extends StatelessWidget {
   const HomePageButton({super.key, required this.function, required this.text});
   final void Function() function;
@@ -71,7 +83,7 @@ class HomePageButton extends StatelessWidget {
 
     return Column(
       children: [
-        const SizedBox(height: 10),
+        const SizedBox(height: 20),
         Center(
           child: ElevatedButton(
             style: style,
@@ -91,14 +103,18 @@ void main() {
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
+  // beware of changing these and looking for results with hot loading. Must re-start
+  // In this app - everyone overrides this except Catalog
   final appTheme = ThemeData(
-    colorSchemeSeed: Colors.yellow,
+    colorSchemeSeed:
+        const Color.fromARGB(255, 158, 19, 19), // not sure what this changes
     textTheme: const TextTheme(
+      // Changes the text of the children who don't override it
       displayLarge: TextStyle(
         fontFamily: 'Corben',
         fontWeight: FontWeight.w700,
         fontSize: 24,
-        color: Colors.black,
+        color: Colors.red,
       ),
     ),
   );
@@ -128,7 +144,7 @@ class MyApp extends StatelessWidget {
         title: 'Circuit Cellar Demo',
         theme: appTheme,
         routerConfig: router(),
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: true,
       ),
     );
   }
@@ -163,6 +179,10 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               ListView(
+                // Following two are to prevent dualing scrolling in the same direction
+                // Even though scrolling is not needed for all of my devices, it is a good idea
+                // to build scrolling into all of your screens -
+                // you never know what kind of device they are going to come up with
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 padding: const EdgeInsets.symmetric(),
